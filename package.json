@@ -1,0 +1,28 @@
+{
+  "name": "bolna_ai_node_custom",
+  "version": "1.0.0",
+  "description": "Hindalco webhook service for processing customer feedback and creating Salesforce cases",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test-hindalco-webhook.js"
+  },
+  "keywords": ["webhook", "hindalco", "salesforce", "feedback"],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.13.1",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.10",
+    "openai": "^6.16.0",
+    "resend": "^6.3.0",
+    "transliteration": "^2.3.5"
+  }
+}

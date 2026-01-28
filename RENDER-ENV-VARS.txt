@@ -1,0 +1,12 @@
+Environment Variables for Render:
+
+NODE_ENV=production
+PORT=10000
+OPENAI_API_KEY=your_openai_api_key
+RESEND_API_KEY=your_resend_api_key
+SF_CLIENT_ID=your_salesforce_client_id
+SF_CLIENT_SECRET=your_salesforce_client_secret
+SF_USERNAME=your_salesforce_username
+SF_PASSWORD=your_salesforce_password
+
+Copy each line above as Key=Value in Render dashboard

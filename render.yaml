@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: hindalco-webhook-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: SF_CLIENT_ID
+        sync: false
+      - key: SF_CLIENT_SECRET
+        sync: false
+      - key: SF_USERNAME
+        sync: false
+      - key: SF_PASSWORD
+        sync: false

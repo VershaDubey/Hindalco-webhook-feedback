@@ -1,0 +1,6 @@
+node_modules
+.env
+# Actual environment variables (contains secrets)
+ACTUAL-ENV-VARS.txt
+# Deployment checklist with actual secrets
+DEPLOYMENT-CHECKLIST.md

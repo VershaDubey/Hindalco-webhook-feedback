@@ -1,0 +1,19 @@
+{
+  "id": "hindalco-webhook-env",
+  "name": "Hindalco Webhook Environment",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5001",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "render_url",
+      "value": "https://your-app-name.onrender.com",
+      "type": "default",
+      "enabled": false
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

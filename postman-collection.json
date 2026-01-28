@@ -1,0 +1,117 @@
+{
+  "info": {
+    "name": "Hindalco Webhook API",
+    "description": "Collection for testing Hindalco webhook endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/ping",
+          "host": ["{{base_url}}"],
+          "path": ["ping"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Hindalco Webhook - Success Case",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"Rajesh Kumar\",\n    \"mobile\": \"9876543210\",\n    \"rate\": \"4\",\n    \"feedback\": \"Good service, but could be faster\",\n    \"issuedesc\": \"Product quality inquiry\",\n    \"email\": \"rajesh.kumar@example.com\",\n    \"address\": \"123 Industrial Area, Mumbai\",\n    \"preferred_date\": \"2026-01-30T10:00:00Z\"\n  },\n  \"telephony_data\": {\n    \"recording_url\": \"https://example.com/recording.mp3\"\n  },\n  \"transcript\": \"Hello, I wanted to give feedback about your product. The quality is good but delivery was slow.\",\n  \"conversation_duration\": 120.5\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/hindalco-webhook",
+          "host": ["{{base_url}}"],
+          "path": ["hindalco-webhook"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Hindalco Webhook - Missing Required Fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"Test User\",\n    \"mobile\": \"9876543210\",\n    \"issuedesc\": \"Test issue without rate and feedback\"\n  },\n  \"transcript\": \"Test transcript\",\n  \"conversation_duration\": 60\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/hindalco-webhook",
+          "host": ["{{base_url}}"],
+          "path": ["hindalco-webhook"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Hindalco Webhook - Minimal Required Data",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"Priya Sharma\",\n    \"rate\": \"5\",\n    \"feedback\": \"Excellent service and product quality!\"\n  },\n  \"transcript\": \"Very satisfied with the service\",\n  \"conversation_duration\": 45\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/hindalco-webhook",
+          "host": ["{{base_url}}"],
+          "path": ["hindalco-webhook"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Hindalco Webhook - Hindi Transcript",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"अमित गुप्ता\",\n    \"mobile\": \"9123456789\",\n    \"rate\": \"3\",\n    \"feedback\": \"सेवा ठीक है लेकिन सुधार की जरूरत है\",\n    \"issuedesc\": \"उत्पाद की गुणवत्ता के बारे में शिकायत\",\n    \"email\": \"amit.gupta@example.com\"\n  },\n  \"transcript\": \"नमस्ते, मैं आपके उत्पाद के बारे में फीडबैक देना चाहता हूं। गुणवत्ता ठीक है लेकिन डिलीवरी में देरी हुई।\",\n  \"conversation_duration\": 180\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/hindalco-webhook",
+          "host": ["{{base_url}}"],
+          "path": ["hindalco-webhook"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5001",
+      "type": "string"
+    }
+  ]
+}
