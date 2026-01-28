@@ -6,13 +6,26 @@ const { getSalesforceToken } = require("../utils/salesforceAuth");
 const OpenAI = require("openai");
 require("dotenv").config();
 
-const openai = new OpenAI({
+// Check if OpenAI API key exists before initializing
+if (!process.env.OPENAI_API_KEY) {
+  console.warn("⚠️  OPENAI_API_KEY not found. Translation/sentiment analysis will be disabled.");
+}
+
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+}) : null;
 
 // Function to translate transcript to English and analyze sentiment
 async function translateAndAnalyzeSentiment(transcript) {
   try {
+    if (!openai) {
+      console.warn("⚠️  OpenAI service not available - OPENAI_API_KEY missing");
+      return {
+        translatedText: transcript || "",
+        sentiment: "Neutral",
+      };
+    }
+
     if (!transcript || transcript.trim() === "") {
       return {
         translatedText: "",

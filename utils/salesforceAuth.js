@@ -6,6 +6,14 @@ let tokenExpiryTime = null; // epoch ms
 async function fetchNewToken() {
   console.log("🔐 Fetching new Salesforce token...");
 
+  // Check if all required Salesforce credentials exist
+  const requiredVars = ['SF_CLIENT_ID', 'SF_CLIENT_SECRET', 'SF_USERNAME', 'SF_PASSWORD'];
+  const missingVars = requiredVars.filter(varName => !process.env[varName]);
+  
+  if (missingVars.length > 0) {
+    throw new Error(`Missing Salesforce credentials: ${missingVars.join(', ')}`);
+  }
+
   const response = await axios.post(
     "https://login.salesforce.com/services/oauth2/token",
     new URLSearchParams({

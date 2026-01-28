@@ -2,11 +2,16 @@ Environment Variables for Render:
 
 NODE_ENV=production
 PORT=10000
-OPENAI_API_KEY=your_openai_api_key
-RESEND_API_KEY=your_resend_api_key
-SF_CLIENT_ID=your_salesforce_client_id
-SF_CLIENT_SECRET=your_salesforce_client_secret
-SF_USERNAME=your_salesforce_username
-SF_PASSWORD=your_salesforce_password
+OPENAI_API_KEY=your_actual_openai_api_key_here
+RESEND_API_KEY=your_actual_resend_api_key_here
+SF_CLIENT_ID=your_actual_salesforce_client_id_here
+SF_CLIENT_SECRET=your_actual_salesforce_client_secret_here
+SF_USERNAME=your_actual_salesforce_username_here
+SF_PASSWORD=your_actual_salesforce_password_here
+WHATSAPP_ACCESS_TOKEN=your_actual_whatsapp_access_token_here
 
+⚠️  CRITICAL: Replace the placeholder values above with your actual API keys in Render dashboard Environment tab
 Copy each line above as Key=Value in Render dashboard
+
+ACTUAL VALUES TO USE (copy these to Render manually):
+- Check DEPLOYMENT-CHECKLIST.md for the real values
