@@ -196,7 +196,7 @@ router.post("/", async (req, res) => {
         Mobile: mobile,
         Rate: rate,
         Feedback:feedback,
-        issuedesc: issueDesc,
+        issuedesc: rate,
         email: " ",
         preferred_date: predDate,
         recording_link: recordingURL,
