@@ -135,7 +135,7 @@ router.post("/", async (req, res) => {
       mobile: mobile ? "***" + mobile.slice(-4) : "Not provided",
       rate,
       feedback: feedback ? feedback.substring(0, 50) + "..." : "Not provided",
-      issuedesc: issuedesc ? "Provided" : "Not provided",
+      issuedesc: rate ? issuedesc ? "Provided" : "Not provided",
       email: email ? "Provided" : "Not provided"
     });
 
@@ -191,7 +191,7 @@ router.post("/", async (req, res) => {
         Mobile: mobile || "0000000000",  // Use default mobile if not provided
         Rate: rate,                   
         Feedback: feedback,       
-        issuedesc: issuedesc || "",
+        issuedesc: rate || issuedesc || "",
         email: customerEmail,
         preferred_date: preferredDate,
         recording_link: recordingURL,
