@@ -135,7 +135,7 @@ router.post("/", async (req, res) => {
       mobile: mobile ? "***" + mobile.slice(-4) : "Not provided",
       rate,
       feedback: feedback ? feedback.substring(0, 50) + "..." : "Not provided",
-      issuedesc: rate ? issuedesc ? "Provided" : "Not provided",
+      issuedesc: issuedesc ? "Provided" : "Not provided",
       email: email ? "Provided" : "Not provided"
     });
 
