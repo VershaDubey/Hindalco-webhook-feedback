@@ -91,18 +91,31 @@ function formatDuration(seconds) {
 // Hindalco Webhook Handler
 router.post("/", async (req, res) => {
   try {
-    console.log("📦 Hindalco Webhook received payload:", JSON.stringify(req.body, null, 2));
+    console.log("📦 HINDALCO Webhook received payload:", JSON.stringify(req.body, null, 2));
+    console.log("🏢 Processing HINDALCO specific webhook");
 
     const extracted = req.body.extracted_data;
     const telephoneData = req.body.telephony_data;
     const transcriptedData = req.body.transcript;
     const conversationDuration = req.body.conversation_duration;
+    const callStatus = req.body.status; // Check call completion status
+
+    // Log call status for debugging
+    console.log("📞 Call Status:", callStatus);
+    console.log("📞 Call Duration:", conversationDuration);
 
     if (!extracted) {
+      console.log("❌ No extracted_data found in HINDALCO webhook");
       return res.status(400).json({ 
         error: "No extracted_data found in payload",
         success: false 
       });
+    }
+
+    // Check if call was completed properly
+    if (callStatus && callStatus !== 'completed') {
+      console.log("⚠️ Call not completed properly, status:", callStatus);
+      // Still process but log the status
     }
 
     // Extract required Hindalco fields
@@ -117,23 +130,46 @@ router.post("/", async (req, res) => {
       preferred_date
     } = extracted;
 
-    // Validate required fields for Hindalco
-    if (!user_name || !rate || !feedback) {
+    console.log("🔍 HINDALCO Extracted Fields:", {
+      user_name,
+      mobile: mobile ? "***" + mobile.slice(-4) : "Not provided",
+      rate,
+      feedback: feedback ? feedback.substring(0, 50) + "..." : "Not provided",
+      issuedesc: issuedesc ? "Provided" : "Not provided",
+      email: email ? "Provided" : "Not provided"
+    });
+
+    // Validate required fields for Hindalco - More flexible validation
+    const missingFields = [];
+    if (!user_name || user_name.trim() === "") missingFields.push("user_name");
+    if (!rate || rate.trim() === "") missingFields.push("rate");
+    if (!feedback || feedback.trim() === "") missingFields.push("feedback");
+
+    if (missingFields.length > 0) {
+      console.log("❌ HINDALCO Missing required fields:", missingFields);
       return res.status(400).json({
-        error: "Missing required Hindalco fields: user_name, rate, feedback",
+        error: `Missing required Hindalco fields: ${missingFields.join(", ")}`,
         success: false,
-        received: { user_name, rate, feedback }
+        received: { user_name, rate, feedback },
+        missingFields: missingFields
       });
     }
 
-    console.log("✅ Hindalco Required Fields:", { user_name, rate, feedback });
+    console.log("✅ HINDALCO Required Fields Validated:", { user_name, rate, feedback });
 
-    // Format data
+    // Format data - Ensure HINDALCO specific recording URL
     const recordingURL = telephoneData?.recording_url || "";
+    console.log("🎵 HINDALCO Recording URL:", recordingURL ? "Provided" : "Not available");
+    
     const formattedDuration = formatDuration(conversationDuration || 0);
     const customerEmail = email || "";
     const customerAddress = address || "";
     const preferredDate = preferred_date ? new Date(preferred_date).toLocaleString() : "";
+
+    // Add HINDALCO identifier to recording for tracking
+    const hindalcoRecordingNote = recordingURL ? 
+      `HINDALCO Call Recording: ${recordingURL}` : 
+      "HINDALCO Call - No recording available";
 
     // Translate transcript and analyze sentiment
     console.log("🔄 Translating transcript and analyzing sentiment...");
@@ -145,14 +181,14 @@ router.post("/", async (req, res) => {
     const accessToken = await getSalesforceToken();
 
     // Create Salesforce Case for Hindalco
-    console.log("📝 Creating Hindalco case in Salesforce...");
+    console.log("📝 Creating HINDALCO case in Salesforce...");
     const sfResponse = await axios.post(
       "https://orgfarm-eb022cf662-dev-ed.develop.my.salesforce.com/services/apexrest/caseService",
       {
-        Subject: "Hindalco Customer Feedback",
+        Subject: "HINDALCO Customer Feedback", // Clear HINDALCO identifier
         operation: "insert",
         user_name: user_name,
-        Mobile: mobile || "",
+        Mobile: mobile || "0000000000",  // Use default mobile if not provided
         Rate: rate,                   
         Feedback: feedback,       
         issuedesc: issuedesc || "",
@@ -164,7 +200,9 @@ router.post("/", async (req, res) => {
         sentiment: sentiment,
         Origin: "Phone",
         Priority: "Medium",
-        Type: "Hindalco Feedback"      // Identify as Hindalco case
+        Type: "HINDALCO Feedback",      // Clear HINDALCO identifier
+        Company: "HINDALCO",            // Add company field for filtering
+        Source: "HINDALCO Voice Bot"    // Add source for tracking
       },
       {
         headers: {
@@ -174,7 +212,7 @@ router.post("/", async (req, res) => {
       }
     );
 
-    console.log("✅ Hindalco Salesforce Case created:", sfResponse.data);
+    console.log("✅ HINDALCO Salesforce Case created:", sfResponse.data);
     const caseId = "SR-" + sfResponse.data.caseNumber;
 
     // Send email notification if email provided
@@ -263,13 +301,16 @@ router.post("/", async (req, res) => {
     // Success response
     res.status(200).json({
       success: true,
-      message: "Hindalco feedback processed successfully",
+      message: "HINDALCO feedback processed successfully",
+      company: "HINDALCO",
       data: {
         caseId: caseId,
         user_name: user_name,
         rate: rate,
         feedback: feedback,
         sentiment: sentiment,
+        recordingUrl: recordingURL,
+        callDuration: formattedDuration,
         emailSent: !!emailResponse,
         whatsappSent: !!whatsappResponse
       },
@@ -279,11 +320,12 @@ router.post("/", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("❌ Hindalco Webhook error:", error.response?.data || error.message);
+    console.error("❌ HINDALCO Webhook error:", error.response?.data || error.message);
     res.status(500).json({
       success: false,
       error: error.response?.data || error.message,
-      message: "Failed to process Hindalco feedback"
+      message: "Failed to process HINDALCO feedback",
+      company: "HINDALCO"
     });
   }
 });
