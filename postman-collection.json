@@ -30,7 +30,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"Rajesh Kumar\",\n    \"mobile\": \"9876543210\",\n    \"rate\": \"4\",\n    \"feedback\": \"Good service, but could be faster\",\n    \"issuedesc\": \"Product quality inquiry\",\n    \"email\": \"rajesh.kumar@example.com\",\n    \"address\": \"123 Industrial Area, Mumbai\",\n    \"preferred_date\": \"2026-01-30T10:00:00Z\"\n  },\n  \"telephony_data\": {\n    \"recording_url\": \"https://example.com/recording.mp3\"\n  },\n  \"transcript\": \"Hello, I wanted to give feedback about your product. The quality is good but delivery was slow.\",\n  \"conversation_duration\": 120.5\n}"
+          "raw": "{\n  \"id\": \"f56b9de9-061b-4842-94fc-aa6347725ad2\",\n  \"agent_id\": \"ac573cff-0b25-4a56-971d-2270041d2da7\",\n  \"batch_id\": null,\n  \"created_at\": \"2026-01-16T05:21:31.365265\",\n  \"updated_at\": \"2026-01-16T05:21:53.692367\",\n  \"scheduled_at\": null,\n  \"answered_by_voice_mail\": null,\n  \"conversation_duration\": 11.5,\n  \"total_cost\": 2.52,\n  \"transcript\": \"assistant: नमस्कार hindalco कस्टमर केयर में आपका स्वागत है में नैना आपकी किस प्रकार सहायता कर सकती हूँ\\nuser: मैं आपके प्रोडक्ट के बारे में फीडबैक देना चाहता हूं। आपका सर्विस अच्छा है, मैं 4 स्टार देता हूं।\",\n  \"extracted_data\": {\n    \"user_name\": \"राजेश कुमार\",\n    \"mobile\": \"8795583362\",\n    \"rate\": \"4\",\n    \"feedback\": \"आपका सर्विस अच्छा है लेकिन डिलीवरी में थोड़ी देरी हुई\",\n    \"email\": \"rajesh.kumar@example.com\",\n    \"address\": \"मुंबई, महाराष्ट्र\"\n  },\n  \"telephony_data\": {\n    \"duration\": \"12\",\n    \"to_number\": \"+918795583362\",\n    \"from_number\": \"+918035735856\",\n    \"recording_url\": \"https://bolna-recordings-india.s3.ap-south-1.amazonaws.com/plivo/0999335f-162b-4c32-bcad-56e944645a8f.mp3\",\n    \"hosted_telephony\": true,\n    \"provider_call_id\": \"0999335f-162b-4c32-bcad-56e944645a8f\",\n    \"call_type\": \"outbound\",\n    \"provider\": \"plivo\",\n    \"hangup_by\": \"Callee\",\n    \"hangup_reason\": \"Call recipient hungup\",\n    \"hangup_provider_code\": 4000\n  },\n  \"status\": \"completed\",\n  \"user_number\": \"+918795583362\",\n  \"agent_number\": \"+918035735856\"\n}"
         },
         "url": {
           "raw": "{{base_url}}/hindalco-webhook",
@@ -52,7 +52,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"Test User\",\n    \"mobile\": \"9876543210\",\n    \"issuedesc\": \"Test issue without rate and feedback\"\n  },\n  \"transcript\": \"Test transcript\",\n  \"conversation_duration\": 60\n}"
+          "raw": "{\n  \"id\": \"test-missing-fields-123\",\n  \"agent_id\": \"ac573cff-0b25-4a56-971d-2270041d2da7\",\n  \"conversation_duration\": 60,\n  \"transcript\": \"Test transcript without required fields\",\n  \"extracted_data\": {\n    \"user_name\": \"Test User\",\n    \"mobile\": \"9876543210\"\n  },\n  \"telephony_data\": {\n    \"recording_url\": \"https://example.com/test-recording.mp3\"\n  },\n  \"status\": \"completed\"\n}"
         },
         "url": {
           "raw": "{{base_url}}/hindalco-webhook",
@@ -74,7 +74,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"Priya Sharma\",\n    \"rate\": \"5\",\n    \"feedback\": \"Excellent service and product quality!\"\n  },\n  \"transcript\": \"Very satisfied with the service\",\n  \"conversation_duration\": 45\n}"
+          "raw": "{\n  \"id\": \"minimal-test-456\",\n  \"agent_id\": \"ac573cff-0b25-4a56-971d-2270041d2da7\",\n  \"conversation_duration\": 45,\n  \"transcript\": \"Very satisfied with the service\",\n  \"extracted_data\": {\n    \"user_name\": \"Priya Sharma\",\n    \"rate\": \"5\",\n    \"feedback\": \"Excellent service and product quality!\"\n  },\n  \"telephony_data\": {\n    \"recording_url\": \"https://example.com/minimal-recording.mp3\"\n  },\n  \"status\": \"completed\"\n}"
         },
         "url": {
           "raw": "{{base_url}}/hindalco-webhook",
@@ -96,7 +96,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"extracted_data\": {\n    \"user_name\": \"अमित गुप्ता\",\n    \"mobile\": \"9123456789\",\n    \"rate\": \"3\",\n    \"feedback\": \"सेवा ठीक है लेकिन सुधार की जरूरत है\",\n    \"issuedesc\": \"उत्पाद की गुणवत्ता के बारे में शिकायत\",\n    \"email\": \"amit.gupta@example.com\"\n  },\n  \"transcript\": \"नमस्ते, मैं आपके उत्पाद के बारे में फीडबैक देना चाहता हूं। गुणवत्ता ठीक है लेकिन डिलीवरी में देरी हुई।\",\n  \"conversation_duration\": 180\n}"
+          "raw": "{\n  \"id\": \"hindi-test-789\",\n  \"agent_id\": \"ac573cff-0b25-4a56-971d-2270041d2da7\",\n  \"conversation_duration\": 180,\n  \"transcript\": \"नमस्ते, मैं आपके उत्पाद के बारे में फीडबैक देना चाहता हूं। गुणवत्ता ठीक है लेकिन डिलीवरी में देरी हुई।\",\n  \"extracted_data\": {\n    \"user_name\": \"अमित गुप्ता\",\n    \"mobile\": \"9123456789\",\n    \"rate\": \"3\",\n    \"feedback\": \"सेवा ठीक है लेकिन सुधार की जरूरत है\",\n    \"email\": \"amit.gupta@example.com\",\n    \"address\": \"दिल्ली, भारत\"\n  },\n  \"telephony_data\": {\n    \"duration\": \"180\",\n    \"recording_url\": \"https://example.com/hindi-recording.mp3\",\n    \"provider\": \"plivo\"\n  },\n  \"status\": \"completed\"\n}"
         },
         "url": {
           "raw": "{{base_url}}/hindalco-webhook",
