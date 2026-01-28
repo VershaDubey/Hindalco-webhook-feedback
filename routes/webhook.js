@@ -187,6 +187,9 @@ router.post("/", async (req, res) => {
       await translateAndAnalyzeSentiment(transcriptedData);
     console.log("✅ Translation complete. Sentiment:", sentiment);
 
+    // Combine rate with issue description
+    const issueDescWithRate = rate ? `${issueDesc} (Rate: ${rate})` : issueDesc;
+
     const sfResponse = await axios.post(
       "https://orgfarm-eb022cf662-dev-ed.develop.my.salesforce.com/services/apexrest/caseService",
       {
@@ -194,9 +197,8 @@ router.post("/", async (req, res) => {
         operation: "insert",
         user_name: user_name,
         Mobile: mobile,
-        Rate: rate,
-        Feedback:feedback,
-        issuedesc: issueDesc,
+        issuedesc: issueDescWithRate,
+        Internal_Comments: feedback,
         email: " ",
         preferred_date: predDate,
         recording_link: recordingURL,
