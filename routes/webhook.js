@@ -8,13 +8,26 @@ const agent = new https.Agent({ rejectUnauthorized: false });
 const OpenAI = require("openai");
 require("dotenv").config();
 
-const openai = new OpenAI({
+// Check if OpenAI API key exists before initializing
+if (!process.env.OPENAI_API_KEY) {
+  console.warn("⚠️  OPENAI_API_KEY not found. Translation/sentiment analysis will be disabled.");
+}
+
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+}) : null;
 
 // Function to translate transcript to English and analyze sentiment
 async function translateAndAnalyzeSentiment(transcript) {
   try {
+    if (!openai) {
+      console.warn("⚠️  OpenAI service not available - OPENAI_API_KEY missing");
+      return {
+        translatedText: transcript || "",
+        sentiment: "Neutral",
+      };
+    }
+
     if (!transcript || transcript.trim() === "") {
       return {
         translatedText: "",
@@ -99,11 +112,15 @@ router.post("/", async (req, res) => {
       user_name,
       mobile,
       issuedesc,
+      rate,
+      feedback,
+      technician_visit_date,
+      fullAddress
     } = extracted;
     let recordingURL = telephoneData?.recording_url || " ";
 
     let issueDesc = issuedesc;
-    let predDate = new Date(technician_visit_date).toLocaleString();
+    let predDate = technician_visit_date ? new Date(technician_visit_date).toLocaleString() : "Not specified";
     //step 0 to classify the subject of salesforce case
     const classifyIssueType = (desc) => {
       if (!desc) return "Feedback Appointment";
@@ -203,7 +220,7 @@ router.post("/", async (req, res) => {
     const issueDescription = issueDesc || "";
     const slaInfo = "City – Technician visit within 24 hours";
     const registeredAddress = fullAddress || "";
-    const serviceTime = new Date(technician_visit_date).toLocaleString(
+    const serviceTime = technician_visit_date ? new Date(technician_visit_date).toLocaleString(
       "en-IN",
       {
         day: "2-digit",
@@ -214,7 +231,7 @@ router.post("/", async (req, res) => {
         second: "2-digit",
         hour12: true,
       },
-    );
+    ) : "Not specified";
 
     //step 2 to send email to customer
 
