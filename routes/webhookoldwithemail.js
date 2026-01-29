@@ -65,16 +65,10 @@ router.post("/", async (req, res) => {
     <h2 style="color: #004d40;">Hindalco Primary Aluminium Update</h2>
     <p>Dear ${user_name},</p>
 
-    <p>We’ve received your request for <b>${feedback}</b>.</p>
+    <p>Thanks for your feedback , we have received your rating as : <b>${rate}</b>.</p>
 
     <p>
-      <b>Case ID:</b> ${caseId}<br/>
-     <b>SLA:</b> ${slaInfo}
-    </p>
-
-    <p>
-      <b>Registered Address:</b><br/>
-      ${registeredAddress}<br/>
+    <p>For any assistance , please contact at: 8795583362</p>
       <b>Feedback Time:</b> ${serviceTime}
     </p>
 

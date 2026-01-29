@@ -240,23 +240,21 @@ router.post("/", async (req, res) => {
     const emailHTML = `
   
     <h2 style="color: #004d40;">Hindalco Primary Aluminium Update</h2>
-    <p>Dear ${user_name},</p>
+  <p>Dear ${user_name},</p>
 
-    <p>We’ve received your feedback as <b>${feedback}</b>.</p>
-
-    <p>
-      <b>Case ID:</b> ${caseId}<br/>
-    </p>
+    <p>Thanks for your feedback , we have received your rating as : <b>${rate}</b>.</p>
 
     <p>
-      <b>Registered Address:</b><br/>
-      ${registeredAddress}<br/>
+    <p>For any assistance , please contact at: 8795583362</p>
+      <b>Feedback Time:</b> ${serviceTime}
     </p>
 
     <p>
       <b>Registered Phone:</b> ${mobile}<br/>
       <b>Registered Email:</b> ${email}
     </p>
+
+    <p>This was a feedback call.</p>
 
     <p style="margin-top: 30px;">Regards,<br/><b>Hindalco Primary Aluminium Team</b></p>
   
