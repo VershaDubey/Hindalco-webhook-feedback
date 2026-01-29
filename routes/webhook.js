@@ -242,11 +242,10 @@ router.post("/", async (req, res) => {
     <h2 style="color: #004d40;">G&B Service Update</h2>
     <p>Dear ${user_name},</p>
 
-    <p>We’ve received your request for <b>${feedback}</b>.</p>
+    <p>We’ve received your feedback as <b>${feedback}</b>.</p>
 
     <p>
       <b>Case ID:</b> ${caseId}<br/>
-      <b>SLA:</b> ${slaInfo}
     </p>
 
     <p>
