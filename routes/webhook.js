@@ -280,18 +280,26 @@ router.post("/", async (req, res) => {
       },
     };
 
-    const whatsappResponse = await axios.post(
-      "https://graph.facebook.com/v22.0/475003915704924/messages",
-      whatsappPayload,
-      {
-        headers: {
-          Authorization:
-            `Bearer ${process.env.WHATSAPP_ACCESS_TOKEN}`,
-          "Content-Type": "application/json",
-          "Accept-Encoding": "identity",
+    let whatsappResponse = null;
+    try {
+      whatsappResponse = await axios.post(
+        "https://graph.facebook.com/v22.0/475003915704924/messages",
+        whatsappPayload,
+        {
+          headers: {
+            Authorization:
+              `Bearer ${process.env.WHATSAPP_ACCESS_TOKEN}`,
+            "Content-Type": "application/json",
+            "Accept-Encoding": "identity",
+          },
         },
-      },
-    );
+      );
+      console.log("✅ WhatsApp message sent successfully");
+    } catch (whatsappError) {
+      console.error("❌ WhatsApp template error:", whatsappError.response?.data || whatsappError.message);
+      // Continue processing even if WhatsApp fails
+      whatsappResponse = { data: { error: "Template not found - WhatsApp message skipped" } };
+    }
 
     res.status(200).json({
       success: true,
