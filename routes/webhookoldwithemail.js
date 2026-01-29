@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "No extracted_data found in payload" });
     }
 
-    let { email, user_name, mobile, issueDesc, } = extracted;
+    let { email, user_name, mobile, issueDesc, feedback , rate } = extracted;
 
     email = spokenToEmail(email);
     let date = technician_visit_date;
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
       "https://orgfarm-eb022cf662-dev-ed.develop.my.salesforce.com/services/data/v55.0/sobjects/Case",
       {
         Subject: "G&B Service Update — Case SR-456789",
-        Description: `Service appointment details:
+        Description: `Feedback appointment details:
         Name: ${user_name}
         Email: ${email}
         Rate: ${rate}
@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
     <h2 style="color: #004d40;">G&B Service Update</h2>
     <p>Dear ${user_name},</p>
 
-    <p>We’ve received your request for <b>${issueDescription}</b>.</p>
+    <p>We’ve received your request for <b>${feedback}</b>.</p>
 
     <p>
       <b>Case ID:</b> ${caseId}<br/>
@@ -75,7 +75,7 @@ router.post("/", async (req, res) => {
     <p>
       <b>Registered Address:</b><br/>
       ${registeredAddress}<br/>
-      <b>Service Time:</b> ${serviceTime}
+      <b>Feedback Time:</b> ${serviceTime}
     </p>
 
     <p>
@@ -83,7 +83,7 @@ router.post("/", async (req, res) => {
       <b>Registered Email:</b> ${email}
     </p>
 
-    <p>Please confirm or update your address before our technician visit.</p>
+    <p>This was a feedback call.</p>
 
     <p style="margin-top: 30px;">Regards,<br/><b>G&B Service Team</b></p>
   
@@ -97,7 +97,7 @@ router.post("/", async (req, res) => {
 
 const parameters = [
   `Dear ${user_name},`,
-  `Issue Description: ${issueDesc}`,
+  `Issue Description: ${feedback}`,
   `Case ID: ${caseId}`,
   `Service Time: ${new Date(date).toLocaleString()}`,
   `Registered Email: ${email}`,
