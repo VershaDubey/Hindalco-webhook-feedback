@@ -238,26 +238,14 @@ router.post("/", async (req, res) => {
     //step 2 to send email to customer
 
     const emailHTML = `
-  
     <h2 style="color: #004d40;">Hindalco Primary Aluminium Update</h2>
-  <p>Dear ${user_name},</p>
-
-    <p>Thanks for your feedback , we have received your rating as : <b>${rate}</b>.</p>
-
-    <p>
-    <p>For any assistance , please contact at: 8795583362</p>
-      <b>Feedback Time:</b> ${serviceTime}
-    </p>
-
-    <p>
-      <b>Registered Phone:</b> ${mobile}<br/>
-      <b>Registered Email:</b> ${email}
-    </p>
-
+    <p>Dear ${user_name},</p>
+    <p>Thanks for your feedback, we have received your rating as: <b>${rate}</b>.</p>
+    <p>For any assistance, please contact at: 8795583362</p>
+    <p><b>Feedback Time:</b> ${serviceTime}</p>
+    <p><b>Registered Phone:</b> ${mobile}<br/><b>Registered Email:</b> ${email}</p>
     <p>This was a feedback call.</p>
-
     <p style="margin-top: 30px;">Regards,<br/><b>Hindalco Primary Aluminium Team</b></p>
-  
 `;
 
     const emailResponse = await sendMail({
@@ -266,36 +254,27 @@ router.post("/", async (req, res) => {
       html: emailHTML,
     });
 
-    //step 3 to send whatsapp message to customer
-    const parameters = [
-      user_name || "Dummy Name",
-      issueDesc || "Dummy Issue",
-      caseId || "Dummy CaseId",
-      fullAddress || "Dummy Address",
-      predDate || "Dummy Date",
-      mobile,
+    //step 3 to send whatsapp message to customer - Feedback Template
+    const feedbackParameters = [
+      user_name || "Customer",
+      rate || "Not provided",
+      serviceTime || "Not specified",
+      mobile || "",
+      email || ""
     ];
 
-    // const parameters = [
-    //   `${user_name}`,
-    //   `${issueDesc}`,
-    //   `${caseId}`,
-    //   `${fullAddress}`,
-    //   `${predDate}`,
-    //   `${mobile}`,
-    // ];
     const whatsappMobile = mobile.replace(/^(\+91|91)/, "");
     const whatsappPayload = {
       messaging_product: "whatsapp",
       to: "91" + whatsappMobile,
       type: "template",
       template: {
-        name: "gb_service_update",
+        name: "hindalco_feedback_template",
         language: { code: "en" },
         components: [
           {
             type: "body",
-            parameters: parameters.map((text) => ({ type: "text", text })),
+            parameters: feedbackParameters.map((text) => ({ type: "text", text })),
           },
         ],
       },
