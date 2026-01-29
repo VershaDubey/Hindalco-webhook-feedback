@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
 
     const caseId = 'SR-'+ sfResponse.data.id; // You can replace this dynamically
     const issueDescription = issueDesc || "";
-    const slaInfo = "City – Technician visit within 24 hours";
+    // const slaInfo = "City – Technician visit within 24 hours";
     const serviceTime = new Date(date).toLocaleString("en-IN", {
       day: "2-digit",
       month: "short",
@@ -69,7 +69,7 @@ router.post("/", async (req, res) => {
 
     <p>
       <b>Case ID:</b> ${caseId}<br/>
-      <b>SLA:</b> ${slaInfo}
+     <b>SLA:</b> ${slaInfo}
     </p>
 
     <p>

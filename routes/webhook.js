@@ -220,7 +220,7 @@ router.post("/", async (req, res) => {
     const caseId = "SR-" + sfResponse.data.caseNumber; // You can replace this dynamically
     const email = sfResponse.data.email || " ";
     const issueDescription = issueDesc || "";
-    const slaInfo = "City – Technician visit within 24 hours";
+    // const slaInfo = "City – Technician visit within 24 hours";
     const registeredAddress = fullAddress || "";
     const serviceTime = technician_visit_date ? new Date(technician_visit_date).toLocaleString(
       "en-IN",
@@ -242,7 +242,7 @@ router.post("/", async (req, res) => {
     <h2 style="color: #004d40;">G&B Service Update</h2>
     <p>Dear ${user_name},</p>
 
-    <p>We’ve received your request for <b>${issueDescription}</b>.</p>
+    <p>We’ve received your request for <b>${feedback}</b>.</p>
 
     <p>
       <b>Case ID:</b> ${caseId}<br/>
@@ -252,7 +252,6 @@ router.post("/", async (req, res) => {
     <p>
       <b>Registered Address:</b><br/>
       ${registeredAddress}<br/>
-      <b>Service Time:</b> ${serviceTime}
     </p>
 
     <p>
