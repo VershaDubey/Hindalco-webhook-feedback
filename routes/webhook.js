@@ -239,7 +239,7 @@ router.post("/", async (req, res) => {
 
     const emailHTML = `
   
-    <h2 style="color: #004d40;">G&B Service Update</h2>
+    <h2 style="color: #004d40;">Hindalco Primary Aluminium Update</h2>
     <p>Dear ${user_name},</p>
 
     <p>We’ve received your feedback as <b>${feedback}</b>.</p>
@@ -258,13 +258,13 @@ router.post("/", async (req, res) => {
       <b>Registered Email:</b> ${email}
     </p>
 
-    <p style="margin-top: 30px;">Regards,<br/><b>G&B Service Team</b></p>
+    <p style="margin-top: 30px;">Regards,<br/><b>Hindalco Primary Aluminium Team</b></p>
   
 `;
 
     const emailResponse = await sendMail({
       to: email,
-      subject: `G&B Service Update — Case ${caseId}`,
+      subject: `Hindalco Primary Aluminium Update — Case ${caseId}`,
       html: emailHTML,
     });
 
