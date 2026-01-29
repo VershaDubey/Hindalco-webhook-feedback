@@ -150,11 +150,11 @@ router.post("/", async (req, res) => {
 
       // Match service-related words
       if (serviceKeywords.some((word) => lowerDesc.includes(word))) {
-        return "Service Appointment";
+        return "Feedback Call";
       }
 
       // Default
-      return "Service Appointment";
+      return "Feedback Call";
     };
 
     const caseType = classifyIssueType(issueDesc);
